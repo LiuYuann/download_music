@@ -1,5 +1,4 @@
-aiohttp
-crypto
-pypinyin
-requests
-tkinter
+aiohttp==3.6.2
+pycryptodome==3.9.4
+pypinyin==0.36.0
+requests==2.22.0

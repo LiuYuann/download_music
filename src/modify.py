@@ -28,10 +28,9 @@ class Modification():
                 return '{}下载成功'.format(d['name'])
             else:
                 remove(d['name'] + '.lrc')
-
-                return '{}下载失败'.format(d['name'])
+                return '{}下载失败1'.format(d['name'])
         else:
             remove('./{}.mp3'.format(d['id']))
             remove('./' + str(d['id']) + '.jpg')
             remove(d['name'] + '.lrc')
-            return '{}下载失败'.format(d['name'])
+            return '{}下载失败2'.format(d['name'])

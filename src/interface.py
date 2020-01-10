@@ -11,6 +11,8 @@ class Interface():
         self.__songinfo = SongInformation()
         self.sch = Scheduler()
         self.__master = Tk()
+        self.__master.title("元音乐下载器")
+        # self.__master.iconbitmap('music.ico')
         self.__v = IntVar()
         self.__v.set(value=30)  # 记录当前页码
         self.__frame1 = Frame(self.__master)
@@ -38,6 +40,12 @@ class Interface():
         self.__sb.config(command=self.__listb.yview)
         self.__next_Button = Button(self.__master, text="下一页", command=self.__next_page)
         self.__next_Button.pack()
+        self.__lyc_var = IntVar()
+        self.__mod_var = IntVar()
+        self.__check_lyc = Checkbutton(self.__master, text="歌词", variable=self.__lyc_var, onvalue=1, offvalue=0)
+        self.__check_mod = Checkbutton(self.__master, text="文件信息", variable=self.__mod_var, onvalue=1, offvalue=0)
+        self.__check_lyc.pack()
+        self.__check_mod.pack()
         self.__download_Button = Button(self.__master, text="下载", command=self.download)
         self.__download_Button.pack()
         self.__master.mainloop()
@@ -65,7 +73,6 @@ class Interface():
         if m:
             songs = []
             for i in self.__listb.curselection():
-                # print(self.__listb.get(i))
                 self.__listb.selection_clear(i)
                 copyright = self.__DATA[i]['privilege']['fee']
                 if copyright == 8:
@@ -75,14 +82,17 @@ class Interface():
                         'pic_url': self.__DATA[i]['al']['picUrl'] + '?param=100y100',
                         'copyright': self.__DATA[i]['privilege']['fee'],
                         'artist': '/'.join([j['name'] for j in self.__DATA[i]['ar']]),
-                        'album': self.__DATA[i]['al']['name'].replace(' ', '')
+                        'album': self.__DATA[i]['al']['name'].replace(' ', ''),
+                        'd_lyc': self.__lyc_var.get(),
+                        'add_info': self.__mod_var.get()
                     }
                     showinfo('信息', song['name'] + '正在下载......')
                     songs.append(song)
                 else:
                     showwarning('提示', '歌曲《{}》因为没有版权，无法下载'.format(self.__DATA[i]['name']))
             if songs:
+                print(songs)
                 res = self.sch.run(songs)
             else:
-                res = ['下载失败']
+                res = ['下载失败3']
             showinfo('下载结果', '\n'.join(res))

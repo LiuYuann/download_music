@@ -29,13 +29,13 @@ class Scheduler():
         download_loop.run_until_complete(asyncio.wait(download_task))
         p = Pool(processes=len(data))
         obj_l = []
-        for i in data:           #更改歌曲标签信息
-            obj=p.apply_async(modifier.modify, args=(i,))
+        for i in data:  # 更改歌曲标签信息
+            obj = p.apply_async(modifier.modify, args=(i,))
             obj_l.append(obj)
         p.close()
         p.join()
-        res=[]
+        res = []
         for obj in obj_l:
             res.append(obj.get())
-        # print('用时{}s'.format(time.clock()))
+        print('用时{}s'.format(time.clock()))
         return res
