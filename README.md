@@ -6,10 +6,6 @@
 
 至少Python3.5以上
 
-### 安装ffmpeg
-
-该下载器需要安装ffmpeg，不会请问百度
-
 ## 配置
 
 ### 进入文件夹
@@ -28,5 +24,5 @@ pip3 install -r requirements.txt
 ## 使用
 
 ```
-python3 run.py
+python run.py
 ```

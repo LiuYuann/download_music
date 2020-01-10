@@ -4,8 +4,8 @@ from os import getcwd, remove, rename
 
 class Modification():
     def __init__(self):
-        self.command1 = 'ffmpeg -i %(id)d.mp3 -metadata title="%(name)s" -metadata artist="%(artist)s" %(id)d1.mp3'
-        self.command2 = 'ffmpeg -y -i %(id)d1.mp3 -i  %(id)d.jpg -map 0:0 -map 1:0 -c copy -id3v2_version 3 %(id)d.mp3'
+        self.command1 = 'ffmpeg.exe -i %(id)d.mp3 -metadata title="%(name)s" -metadata artist="%(artist)s" %(id)d1.mp3'
+        self.command2 = 'ffmpeg.exe -y -i %(id)d1.mp3 -i  %(id)d.jpg -map 0:0 -map 1:0 -c copy -id3v2_version 3 %(id)d.mp3'
 
     def modify(self, d):
         cwd = getcwd()
