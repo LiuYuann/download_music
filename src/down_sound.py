@@ -16,3 +16,4 @@ class Download_sound():
         sound_content = await self.__get_content(url)
         with open(str(d['id']) + '.mp3', 'wb') as f:
             f.write(sound_content)
+        return '{}下载成功'.format(d['name'])

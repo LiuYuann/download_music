@@ -1,3 +1,4 @@
+import re
 from math import ceil
 from tkinter import *
 from tkinter.messagebox import askyesno, showwarning, showinfo
@@ -77,7 +78,8 @@ class Interface():
                 copyright = self.__DATA[i]['privilege']['fee']
                 if copyright == 8:
                     song = {
-                        'name': self.__DATA[i]['name'].replace(' ', ''),  # 删去字符串内部空格，防止在命令中出现参数错误
+                        'name': re.sub(r'[\\/:\*\?"<>\|]', '', self.__DATA[i]['name'].replace(' ', '')),
+                        # 删去字符串内部空格，防止在命令中出现参数错误
                         'id': self.__DATA[i]['id'],
                         'pic_url': self.__DATA[i]['al']['picUrl'] + '?param=100y100',
                         'copyright': self.__DATA[i]['privilege']['fee'],
@@ -91,7 +93,6 @@ class Interface():
                 else:
                     showwarning('提示', '歌曲《{}》因为没有版权，无法下载'.format(self.__DATA[i]['name']))
             if songs:
-                print(songs)
                 res = self.sch.run(songs)
             else:
                 res = ['下载失败3']
