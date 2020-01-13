@@ -4,16 +4,15 @@ from tkinter import *
 from tkinter.messagebox import askyesno, showwarning, showinfo
 from .songinfomation import *
 from .scheduler import *
+from os import getcwd
 
 
-class Interface():
+class Interface:
 
     def __init__(self):
-        self.__songinfo = SongInformation()
-        self.sch = Scheduler()
         self.__master = Tk()
         self.__master.title("元音乐下载器")
-        # self.__master.iconbitmap('music.ico')
+        self.__master.iconbitmap(getcwd()+'\\src\\music.ico')
         self.__v = IntVar()
         self.__v.set(value=30)  # 记录当前页码
         self.__frame1 = Frame(self.__master)
@@ -23,7 +22,9 @@ class Interface():
         self.__e = Entry(self.__frame1)
         self.__e.grid(row=0, column=1)
         self.__e.insert(0, "泫雅")
-        self.__song_list = self.__songinfo.get_info(self.__e.get())
+        self.__song_info = SongInformation()
+        self.sch = Scheduler()
+        self.__song_list = self.__song_info.get_info(self.__e.get())
         song_count = self.__song_list["songCount"]
         self.__pages = ceil(song_count / 30)
         Label(self.__frame1, text='         ').grid(row=0, column=2)
@@ -59,7 +60,7 @@ class Interface():
         page = 0
         self.__v.set(page)
         self.__listb.delete(0, END)
-        song_list = self.__songinfo.get_info(self.__e.get(), page)
+        song_list = self.__song_info.get_info(self.__e.get(), page)
         self.__DATA = song_list['songs']
         for i in self.__DATA:
             self.__listb.insert(END, i["name"] + '--' + i["ar"][0]["name"])
@@ -67,7 +68,7 @@ class Interface():
 
     def __next_page(self):
         page = self.__v.get() + 30
-        song_list = self.__songinfo.get_info(self.__e.get(), page)
+        song_list = self.__song_info.get_info(self.__e.get(), page)
         self.__DATA += song_list['songs']
         for i in song_list['songs']:
             self.__listb.insert(END, i["name"] + '--' + i["ar"][0]["name"])
